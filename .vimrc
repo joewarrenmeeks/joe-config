@@ -38,5 +38,5 @@ let g:airline_detect_paste=1
 let g:airline#extensions#tabline#enabled=1
 syntax on
 set expandtab
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
