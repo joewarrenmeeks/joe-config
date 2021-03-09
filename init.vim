@@ -126,6 +126,8 @@ set undolevels=100
 " set <leader>
 let mapleader=","
 
+let g:loaded_python_provider = 0
+
 " enable mouse
 set mouse=a
 
