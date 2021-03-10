@@ -14,46 +14,20 @@ call vundle#rc()
 " core plugins
 Bundle "gmarik/vundle"
 Bundle "flazz/vim-colorschemes"
-Bundle "ctrlpvim/ctrlp.vim"
 
 " autocomplete
-Bundle "ervandew/supertab"
 
 " nice to have plugins
-Bundle "bling/vim-airline"
-Bundle "vim-airline/vim-airline-themes"
-Bundle "jlanzarotta/bufexplorer"
-Bundle "scrooloose/syntastic.git"
-Bundle "vim-scripts/tComment"
-Bundle "tpope/vim-surround"
-Bundle "mileszs/ack.vim"
-Bundle "rking/ag.vim"
-Bundle "Chun-Yang/vim-action-ag"
-Bundle "tpope/vim-fugitive"
-Bundle "henrik/vim-indexed-search"
-Bundle "tpope/vim-abolish"
-Bundle "tpope/vim-repeat"
 Bundle "jiangmiao/auto-pairs"
-Bundle "xolox/vim-session"
-Bundle "xolox/vim-misc"
-Bundle "editorconfig/editorconfig-vim"
-Bundle "godlygeek/tabular"
-Bundle "airblade/vim-gitgutter"
-Bundle "Lokaltog/vim-easymotion"
-Bundle "rhysd/clever-f.vim"
 Bundle "tmhedberg/SimpylFold"
 Bundle "tpope/vim-commentary"
-
+Bundle "bling/vim-airline"
+Bundle "vim-airline/vim-airline-themes"
 
 " togglable panels
 Bundle "scrooloose/nerdtree"
-Bundle "tpope/vim-vinegar"
-Bundle "majutsushi/tagbar"
 
 " python
-Bundle "jpalardy/vim-slime"
-Bundle "hanschen/vim-ipython-cell"
-Bundle "python-mode/python-mode"
 Bundle "numirias/semshi"
 Bundle "Vimjas/vim-python-pep8-indent"
 Bundle "dense-analysis/ale"
@@ -61,27 +35,7 @@ Bundle "neoclide/coc.nvim"
 Bundle "neoclide/coc-python"
 Bundle "junegunn/fzf.vim"
 Bundle "jeetsukumaran/vim-pythonsense"
-
-" rust
-Bundle "rust-lang/rust.vim"
-Bundle "cespare/vim-toml"
-
-" R
-Bundle "jalvesaq/Nvim-R"
-" Bundle "chrisbra/csv.vim"
-" Bundle "vim-pandoc/vim-rmarkdown"
-" Bundle "gaalcaras/ncm-R"
-" Bundle "w0rp/ale"
-
-" Bundle "plasticboy/vim-markdown"
-" Bundle "fatih/vim-go"
-" Bundle "vim-scripts/c.vim"
-
-Bundle "tomlion/vim-solidity"
-
-" snippets
-Bundle "SirVer/ultisnips"
-Bundle "honza/vim-snippets"
+Bundle "python-mode/python-mode"
 
 " enable all the plugins
 filetype plugin indent on
@@ -271,6 +225,7 @@ let g:airline#extensions#tabline#enabled       =  1
 let g:airline#extensions#tabline#tab_nr_type   =  1 " tab number
 let g:airline#extensions#tabline#fnamecollapse =  1 " /a/m/model.rb
 let g:airline#extensions#hunks#non_zero_only   =  1 " git gutter
+let g:airline#extensions#ale#enabled = 1
 
 " YouCompleteMe
 " let g:ycm_path_to_python_interpreter = '/usr/local/bin/python3'
@@ -330,6 +285,21 @@ set updatetime=300
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+let g:ale_sign_column_always = 1
+
+" airline
+if !exists("g:airline_symbols")
+  let g:airline_symbols = {}
+endif
+let g:airline_theme="powerlineish"
+let g:airline_powerline_fonts=1
+let g:airline#extensions#branch#empty_message  =  "no .git"
+let g:airline#extensions#whitespace#enabled    =  0
+let g:airline#extensions#syntastic#enabled     =  1
+let g:airline#extensions#tabline#enabled       =  1
+let g:airline#extensions#tabline#tab_nr_type   =  1 " tab number
+let g:airline#extensions#tabline#fnamecollapse =  1 " /a/m/model.rb
+let g:airline#extensions#hunks#non_zero_only   =  1 " git gutter
 
 " Pymode Options
 let g:pymode_python = 'python3'
@@ -419,14 +389,10 @@ let g:slime_dont_ask_default = 1
 " Use '##' to define cells instead of using marks
 let g:ipython_cell_delimit_cells_by = 'tags'
 " Rstudio/ipython habit
-autocmd FileType python nnoremap <buffer> <CR> :SlimeSendCurrentLine<CR>gj
-autocmd FileType python nnoremap <buffer> <leader>r :SlimeSendCurrentLine<CR>
-autocmd FileType python xnoremap <buffer> <leader>r :SlimeSend<CR>
 autocmd FileType python nnoremap <buffer> <leader>w :IPythonCellRunTime<CR>
 autocmd FileType python nnoremap <buffer> <leader>c :IPythonCellExecuteCellJump<CR>
 " autocmd FileType python nnoremap <buffer> <C-j> :IPythonCellNextCell<CR>
 " autocmd FileType python nnoremap <buffer> <C-k> :IPythonCellPrevCell<CR>
-autocmd FileType python nnoremap <buffer> <leader>d :SlimeSend1 plt.show()<CR>
 autocmd FileType python nnoremap <buffer> <leader>x :IPythonCellRestart<CR>
 
 " R indentation

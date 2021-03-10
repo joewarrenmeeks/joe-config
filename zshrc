@@ -12,9 +12,10 @@ then
     export GH_EDITOR=/usr/bin/vim
     alias ide='docker run --rm --mount type=bind,source=/Users/joewarrenmeeks,target=/home/joewarrenmeeks -it ide:latest start.sh'
 else
-    export PATH=$HOME/bin:$HOME/dev/aws-tools:$PATH
+    export PATH=$HOME/.local/bin:$HOME/bin:$HOME/dev/aws-tools:$PATH
     export EDITOR=/usr/bin/nvim
     export GH_EDITOR=/usr/bin/nvim
+    export GPG_TTY=$(tty)
 fi
 export GH_HOST="github.ucds.io"
 bindkey '^R' history-incremental-search-backward
