@@ -3,6 +3,7 @@ plugins=(git zsh-autosuggestions docker docker-compose helm kubectl terraform vi
 export ZSH=~/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 HOST=$(hostname)
+export LANG=en_GB.UTF-8
 if [ "$HOST" = "DWP0010079" ]
 then
     export PATH="$PATH:$HOME/Library/Python/2.7/bin:$HOME/Library/Python/3.8/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"

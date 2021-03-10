@@ -42,6 +42,8 @@ Bundle "airblade/vim-gitgutter"
 Bundle "Lokaltog/vim-easymotion"
 Bundle "rhysd/clever-f.vim"
 Bundle "tmhedberg/SimpylFold"
+Bundle "tpope/vim-commentary"
+
 
 " togglable panels
 Bundle "scrooloose/nerdtree"
@@ -52,6 +54,13 @@ Bundle "majutsushi/tagbar"
 Bundle "jpalardy/vim-slime"
 Bundle "hanschen/vim-ipython-cell"
 Bundle "python-mode/python-mode"
+Bundle "numirias/semshi"
+Bundle "Vimjas/vim-python-pep8-indent"
+Bundle "dense-analysis/ale"
+Bundle "neoclide/coc.nvim"
+Bundle "neoclide/coc-python"
+Bundle "junegunn/fzf.vim"
+Bundle "jeetsukumaran/vim-pythonsense"
 
 " rust
 Bundle "rust-lang/rust.vim"
@@ -82,12 +91,7 @@ filetype plugin indent on
 " SETTINGS & KEYBINDINGS
 "
 """"""""""""""""""""""""""""""""
-set expandtab
 set smarttab
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-set autoindent
 set ruler
 set hidden
 set ignorecase
@@ -252,7 +256,7 @@ let g:clever_f_show_prompt = 1
 let g:clever_f_across_no_line = 1
 
 " syntastic
-let g:syntastic_python_checkers = []
+"let g:syntastic_python_checkers = []
 
 " airline
 if !exists("g:airline_symbols")
@@ -315,12 +319,17 @@ augroup FileType go
 augroup END
 
 " Python Settings
-let g:pymode_rope = 1
+let g:pymode_rope = 0
 let ropevim_enable_shortcuts = 1
 let g:pymode_rope_lookup_project = 0 "dont scan parent dir for .ropeproject
 let g:pymode_rope_goto_def_newwin = "e"
 let g:pymode_rope_completion = 1
 let g:pymode_rope_complete_on_dot = 0
+set cmdheight=2
+set updatetime=300
+inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Pymode Options
 let g:pymode_python = 'python3'
@@ -332,6 +341,46 @@ let g:pymode_motion = 1         " Enable python objects and motion
 let g:pymode_trim_whitespaces = 1 "Trim unused white spaces on save
 let g:pymode_quickfix_minheight = 3
 let g:pymode_quickfix_maxheight = 5
+let g:ale_linters = {
+      \   'python': ['flake8', 'pylint'],
+      \   'ruby': ['standardrb', 'rubocop'],
+      \   'javascript': ['eslint'],
+      \}
+let g:ale_fixers = {
+      \    'python': ['yapf'],
+      \}
+
+nmap <F9> :ALEFix<CR>
+let g:ale_fix_on_save = 1
+function! LinterStatus() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  return l:counts.total == 0 ? '✨ all good ✨' : printf(
+        \   '😞 %dW %dE',
+        \   all_non_errors,
+        \   all_errors
+        \)
+endfunction
+
+nmap <silent> gd <Plug>(coc-definition)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+nmap <leader>rn <Plug>(coc-rename)
+
+set statusline=
+set statusline+=%m
+set statusline+=\ %f
+set statusline+=%=
+set statusline+=\ %{LinterStatus()}
 
 " debugging
 let g:pymode_breakpoint = 1
@@ -379,7 +428,6 @@ autocmd FileType python nnoremap <buffer> <leader>c :IPythonCellExecuteCellJump<
 " autocmd FileType python nnoremap <buffer> <C-k> :IPythonCellPrevCell<CR>
 autocmd FileType python nnoremap <buffer> <leader>d :SlimeSend1 plt.show()<CR>
 autocmd FileType python nnoremap <buffer> <leader>x :IPythonCellRestart<CR>
-nnoremap <F9> :execute "!/usr/bin/black %"<CR>
 
 " R indentation
 augroup r_indent
@@ -510,15 +558,6 @@ set foldmethod=indent
 set foldlevel=99
 nnoremap <space> za
 let g:SimpylFold_docstring_preview=1
-
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
 
 let python_highlight_all=1
 """"""""""""""""""""""""""""""""
