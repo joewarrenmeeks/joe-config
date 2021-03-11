@@ -6,4 +6,4 @@ source ~/.zshrc
 
 alias vi=nvim
 cd
-exec zsh -l -c /usr/bin/tmux
+exec zsh -l
