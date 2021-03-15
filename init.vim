@@ -6,6 +6,7 @@
 " not a vi
 set encoding=utf-8
 
+let g:ale_disable_lsp = 1
 " start vundler
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -14,8 +15,7 @@ call vundle#rc()
 " core plugins
 Bundle "gmarik/vundle"
 Bundle "flazz/vim-colorschemes"
-
-" autocomplete
+Bundle "ctrlpvim/ctrlp.vim"
 
 " nice to have plugins
 Bundle "jiangmiao/auto-pairs"
@@ -37,6 +37,9 @@ Bundle "junegunn/fzf.vim"
 Bundle "jeetsukumaran/vim-pythonsense"
 Bundle "python-mode/python-mode"
 
+" Other languages
+Bundle 'rodjek/vim-puppet'
+Bundle 'groovy.vim'
 " enable all the plugins
 filetype plugin indent on
 
@@ -60,7 +63,7 @@ set nowrap
 set backspace=indent,eol,start
 set shell=/bin/bash
 set completeopt -=preview
-set textwidth=100
+" set textwidth=100
 set wildmenu
 set noshowmode
 set cmdheight=1
@@ -180,6 +183,31 @@ nnoremap <leader>V :tabnew  ~/.config/nvim/init.vim<CR>
 
 " reload all open buffers
 nnoremap <leader>Ra :tabdo exec "windo e!"
+" ctrlP config
+let g:ctrlp_map = "<c-p><CR>"
+nnoremap <leader>t :CtrlPMRU<CR>
+nnoremap <leader>bp :CtrlPBuffer<CR>
+
+let s:ctrlp_fallback = 'ag %s
+  \ --nocolor --nogroup --depth 5
+  \ --hidden --follow --smart-case
+  \ --ignore .git
+  \ --ignore .cargo
+  \ --ignore .ropeproject
+  \ --ignore .ccache
+  \ --ignore .DS_Store
+  \ --ignore .opt1
+  \ --ignore .pylint.d
+  \ --ignore .shell
+  \ --ignore "build/*"
+  \ --ignore "dist/*"
+  \ --ignore "target/*"
+  \ --ignore "**/*.pyc"
+  \ --ignore "**/*.class"
+  \ --ignore "**/*.o"
+  \ -g ""'
+
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . --cached --others --exclude-standard', s:ctrlp_fallback]
 
 "map next-previous jumps
 nnoremap <leader>m <C-o>
@@ -282,10 +310,15 @@ let g:pymode_rope_completion = 1
 let g:pymode_rope_complete_on_dot = 0
 set cmdheight=2
 set updatetime=300
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 let g:ale_sign_column_always = 1
+
+" Puppet
+let g:puppet_align_hashes = 1
 
 " airline
 if !exists("g:airline_symbols")
@@ -300,6 +333,8 @@ let g:airline#extensions#tabline#enabled       =  1
 let g:airline#extensions#tabline#tab_nr_type   =  1 " tab number
 let g:airline#extensions#tabline#fnamecollapse =  1 " /a/m/model.rb
 let g:airline#extensions#hunks#non_zero_only   =  1 " git gutter
+" Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
 
 " Pymode Options
 let g:pymode_python = 'python3'
