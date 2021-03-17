@@ -14,8 +14,7 @@ then
     alias vi='nvi'
     alias nvi='nedit.sh ${1}'
     alias ide='nedit.sh'
-    alias linux='docker run -d --rm --mount type=bind,source=/Users/joewarrenmeeks,target=/home/joewarrenmeeks --name linux linux:latest tail -f /dev/null'
-
+    alias linux='linux.sh'
 else
     export PATH=$HOME/dev/aws-tools/terraform/venv/bin/:$HOME/.local/bin:$HOME/bin:$HOME/dev/aws-tools:$PATH
     export EDITOR=/usr/bin/nvim

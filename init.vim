@@ -40,6 +40,7 @@ Bundle "python-mode/python-mode"
 " Other languages
 Bundle 'rodjek/vim-puppet'
 Bundle 'groovy.vim'
+Bundle 'bash-support.vim'
 " enable all the plugins
 filetype plugin indent on
 
@@ -62,6 +63,13 @@ set cursorline
 set nowrap
 set backspace=indent,eol,start
 set shell=/bin/bash
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set copyindent
+
 set completeopt -=preview
 " set textwidth=100
 set wildmenu

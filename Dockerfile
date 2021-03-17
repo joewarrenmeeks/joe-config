@@ -9,7 +9,7 @@ RUN chmod 644 /etc/ssl/certs/*
 RUN /usr/sbin/update-ca-certificates --fresh
 
 RUN apt-get -y install neovim zsh python3-pip virtualenv curl python2 \
-	python3-pycurl locales curl procps git
+	python3-pycurl locales curl procps git yamllint
 
 RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py  --output /tmp/get-pip.py
 RUN python2 /tmp/get-pip.py --trusted-host pypi.org --trusted-host files.pythonhosted.org && rm /tmp/get-pip.py
