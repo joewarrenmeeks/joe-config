@@ -23,6 +23,7 @@ Bundle "tmhedberg/SimpylFold"
 Bundle "tpope/vim-commentary"
 Bundle "bling/vim-airline"
 Bundle "vim-airline/vim-airline-themes"
+Bundle "vim-syntastic/syntastic"
 
 " togglable panels
 Bundle "scrooloose/nerdtree"
@@ -38,9 +39,12 @@ Bundle "jeetsukumaran/vim-pythonsense"
 Bundle "python-mode/python-mode"
 
 " Other languages
-Bundle 'rodjek/vim-puppet'
-Bundle 'groovy.vim'
-Bundle 'bash-support.vim'
+Bundle "rodjek/vim-puppet"
+Bundle "groovy.vim"
+Bundle "bash-support.vim"
+Bundle "hashivim/vim-terraform"
+Bundle "juliosueiras/vim-terraform-completion"
+
 " enable all the plugins
 filetype plugin indent on
 
@@ -114,6 +118,33 @@ syntax on
 colorscheme candyman
 highlight CursorLine ctermbg=black
 
+" NEW
+" Syntastic Config
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" (Optional)Remove Info(Preview) window
+set completeopt-=preview
+
+" (Optional)Hide Info(Preview) window after completions
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+" (Optional) Enable terraform plan to be include in filter
+let g:syntastic_terraform_tffilter_plan = 1
+
+" (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
+let g:terraform_completion_keys = 1
+
+" (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
+let g:terraform_registry_module_completion = 0
+" NEW
 " session management
 let g:session_directory = "~/.vim/session"
 let g:session_autoload = "no"
@@ -125,7 +156,7 @@ nnoremap <leader>sd :DeleteSession<CR>
 nnoremap <leader>sc :CloseSession<CR>
 
 " togglables without FN keys
-nnoremap <leader>1 :NERDTreeToggle<CR>
+nnoremap <leader>1 :NERDTreeToggle %<CR>
 set pastetoggle=<leader>2
 nnoremap <leader>3 :set number!<CR>
 nnoremap <leader>4 :set rnu!<CR>
