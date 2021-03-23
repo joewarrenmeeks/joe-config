@@ -8,10 +8,11 @@ alias vi=nvim
 
 if [ "${1}" ] && [ "${2}" ]
 then
-  zsh -l -c "vi ${2}"
+  shift
+  zsh -l -c "vi ${@}"
 elif [ "${1}" ]
 then
-  cd ${1} && zsh -l 
+  cd ${1} && zsh -l
 else
   zsh -l
 fi
