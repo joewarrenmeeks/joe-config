@@ -9,7 +9,10 @@ alias vi=nvim
 if [ "${1}" ] && [ "${2}" ]
 then
   shift
-  zsh -l -c "vi ${@}"
+  for file in ${@}; do
+    files+="${file} "
+  done
+  zsh -l -c "vi ${files}"
 elif [ "${1}" ]
 then
   cd ${1} && zsh -l

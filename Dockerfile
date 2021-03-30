@@ -1,7 +1,7 @@
-FROM debian:bullseye-slim
+FROM 329413756974.dkr.ecr.eu-west-2.amazonaws.com/ucfs/base-debian:bullseye-slim
 
 USER root
-RUN apt-get update
+RUN apt-get update || true
 
 RUN apt-get -y install ca-certificates
 ADD *.pem /etc/ssl/certs/
