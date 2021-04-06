@@ -297,3 +297,4 @@ bind p previous-window
 # move status line to top
 #set -g status-position top
 bind z set-window-option synchronize-panes
+# split-window 'docker exec -it linux start.sh'

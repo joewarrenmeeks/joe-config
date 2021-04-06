@@ -19,5 +19,5 @@ if [ "${1}" ]; then
     done
     docker exec -it linux /bin/start.sh ${PWD} ${LIST}
 else
-    docker exec -it linux /bin/start.sh ${PWD}
+    docker exec -it linux /bin/start.sh ${PWD} $(mktemp)
 fi

@@ -44,6 +44,7 @@ Bundle "groovy.vim"
 Bundle "bash-support.vim"
 Bundle "hashivim/vim-terraform"
 Bundle "juliosueiras/vim-terraform-completion"
+Bundle 'stephpy/vim-yaml'
 
 " enable all the plugins
 filetype plugin indent on
@@ -476,6 +477,8 @@ augroup r_indent
   autocmd FileType r set textwidth=80 shiftwidth=2
   autocmd FileType r set softtabstop=2 tabstop=2
 augroup END
+
+au BufNewFile,BufRead *.yaml,*.yml,*.eyaml so ~/.vim/bundle/vim-yaml/after/syntax/yaml.vim
 
 " Nvim-R config
 let R_assign = 0
