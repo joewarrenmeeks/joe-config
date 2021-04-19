@@ -8,6 +8,7 @@ alias vi=nvim
 
 if [ "${1}" ] && [ "${2}" ]
 then
+  cd ${1}
   shift
   for file in ${@}; do
     files+="${file} "
