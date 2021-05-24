@@ -22,7 +22,6 @@ fi
 
 export POWERLINE_PATH=$HOME/Library/Python/3.8/lib/python/site-packages
 
-ZSH_THEME="half-life"
 plugins=(git zsh-autosuggestions docker docker-compose helm kubectl terraform vi-mode virtualenv vscode magic-enter)
 
 export ZSH=~/.oh-my-zsh
